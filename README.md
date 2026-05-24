@@ -44,6 +44,7 @@ Custom UI component system
 
 # Project Structure
 
+'''
 Store-Management-System/
 ├── scripts/
 │   ├── database.py
@@ -62,6 +63,7 @@ Store-Management-System/
 │
 ├── main.py
 └── README.md
+'''
 ---
 
 # Database:
