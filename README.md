@@ -97,19 +97,22 @@ The application supports:
 
 **Method 1: (Python)**
 1) Clone Repository
+```bash
 git clone https://github.com/srh05624/Store-Management-System.git
 cd Store-Management-System
+```
 
 2) Install Dependencies (Generated via pipreqs)
 
+```bash
 pip install requirements.txt
+```
 
 3) Run Application
 python main.py
 
 **Method 2: (Standalone Executable)**
-The project is packaged into a standalone Windows executable using:
-pyinstaller
+The project is packaged into a standalone Windows executable using: pyinstaller
 
 To run the project, use the executable found in the dist folder.
 
