@@ -4,6 +4,8 @@ A desktop-based store and service management system built with Python, SQLite, a
 
 Designed for service businesses to manage stores, recurring services, service history, pricing, and image records through a graphical interface.
 
+Originaly deisgned for my father's Lawn Service Business.
+
 ---
 
 # Features:
