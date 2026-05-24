@@ -25,10 +25,13 @@ Designed for service businesses to manage stores, recurring services, service hi
 # Preview:
 
 **Main Window**
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/4bdb5853-7929-4e61-8503-a8f23075e9e0" />
 
 **Expanded Store View**
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/24c789b6-ba75-4821-84a7-faa00c30418b" />
 
 **Image Viewer**
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/31e25191-a5fa-48bf-b07e-94204e8a4fba" />
 
 ---
 
