@@ -1,4 +1,4 @@
-Lawn Service Manager
+# Lawn Service Manager
 
 A desktop-based store and service management system built with Python, SQLite, and PySide6.
 
@@ -6,7 +6,7 @@ Designed for small lawn care/service businesses to manage stores, recurring serv
 
 ---
 
-Features:
+# Features:
 
 Store management system
 Add/edit/remove stores
@@ -22,7 +22,7 @@ Dark themed UI built with PySide6
 
 ---
 
-Preview:
+# Preview:
 
 Main Window
 
@@ -32,7 +32,7 @@ Image Viewer
 
 ---
 
-Technologies Used:
+# Technology Used:
 
 Python 3
 PySide6
@@ -42,7 +42,7 @@ Custom UI component system
 
 ---
 
-Project Structure
+# Project Structure
 
 Store-Management-System/
 ├── scripts/
@@ -64,7 +64,7 @@ Store-Management-System/
 └── README.md
 ---
 
-Design of Database:
+# Database:
 
 The application uses SQLite with relational table structures for:
 
@@ -78,7 +78,7 @@ Foreign key relationships and cascading deletes are supported.
 
 ---
 
-Safety features:
+# Safety features:
 
 The application supports:
 
@@ -89,7 +89,7 @@ Importing existing databases
 
 ---
 
-Installation Steps:
+# Installation Steps:
 
 Method 1: (Python)
 1) Clone Repository
@@ -113,7 +113,7 @@ Current packaged size is approximately: 50MB
 
 ---
 
-Project Goals:
+# Project Goals:
 
 This project was created to:
 
@@ -124,7 +124,7 @@ Build a real-world desktop application with Python
 
 ---
 
-Planned future improvements include:
+# Planned improvements:
 
 Calendar/scheduling system
 Better responsive layouts
