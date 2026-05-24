@@ -59,9 +59,12 @@ Store-Management-System/
 │   ├── service_object.py
 │   ├── service_record_object.py
 │   ├── service_history_object.py
+│   ├── export_prompt.py
+│   ├── image_prompt.py
 │   └── image_object.py
 │
 ├── main.py
+├── requirements.txt
 └── README.md
 '''
 ---
@@ -98,7 +101,7 @@ Method 1: (Python)
 git clone https://github.com/srh05624/Store-Management-System.git
 cd Store-Management-System
 
-2) Install Dependencies
+2) Install Dependencies (Generated via pipreqs)
 
 pip install requirements.txt
 
