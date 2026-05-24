@@ -3,6 +3,8 @@ from datetime import datetime
 from scripts import installer
 from PySide6.QtWidgets import QFileDialog
 
+current_language = "en"
+
 # ===============================================================
 # Utility functions
 # ===============================================================
@@ -23,6 +25,14 @@ def create_directory(path):
     except Exception as e:
         logging.error(f"Error creating directory {path}: {e}")
 
+def change_language(language):
+    global current_language
+    if language in installer.supported_languages:
+        current_language = language
+        logging.info(f"Language changed to: {language}")
+    else:
+        logging.warning(f"Unsupported language: {language}")
+
 def exit(code=0):
     print("Exiting application.")
     sys.exit(code)
@@ -35,7 +45,7 @@ def request_dir():
         log_info("Requesting directory for export...")
         directory = QFileDialog.getExistingDirectory(
             None, 
-            "Seleccionar Directorio para Exportar Datos", 
+            "Seleccionar Directorio para Exportar Datos" if current_language == "es" else "Select Directory to Export Data", 
             ""
         )
 
@@ -124,7 +134,7 @@ def setup_logging(log_dir, debug=False):
     try:
         if not os.path.exists(log_dir):
             os.makedirs(log_dir)
-        log_file = os.path.join(log_dir, f"LawnServiceManager_{formated_time()}.log")
+        log_file = os.path.join(log_dir, f"ServiceManager_{formated_time()}.log")
         
         logging.basicConfig(
             filename=log_file,

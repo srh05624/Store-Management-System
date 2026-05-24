@@ -44,6 +44,8 @@ class ServiceRecordWidget(QWidget):
         self.screen_size = (1920, 1080)
         self.size_hint = QSize(600, 105)
         
+        self.language = utils.current_language
+
         self.TEXT = (240, 240, 240, 255)
         self.TRANSPARENT = (0, 0, 0, 0)
         self.BACKGROUND = (40, 40, 40, 255)
@@ -63,7 +65,8 @@ class ServiceRecordWidget(QWidget):
         # ================================================================
         self.service_textbox = Engine.create_input(
             text=self.service_name,
-            placeholder="Servicio",
+            placeholder="Servicio" if self.language == "es"
+                else "Service",
             size=(200, 20),
             position=(10, 5),
             color=self.TEXT,
@@ -79,7 +82,8 @@ class ServiceRecordWidget(QWidget):
 
         self.price_textbox = Engine.create_input(
             text=f"${self.price:.2f}" if self.price else "",
-            placeholder="Precio",
+            placeholder="Precio" if self.language == "es"
+                else "Price",
             size=(60, 20),
             position=(220, 5),
             color=self.TEXT,
@@ -95,7 +99,8 @@ class ServiceRecordWidget(QWidget):
 
         self.frequency_textbox = Engine.create_input(
             text=str(self.frequency) if self.frequency is not None else "",
-            placeholder="Frecuencia",
+            placeholder="Frecuencia" if self.language == "es"
+                else "Frequency",
             size=(80, 20),
             position=(290, 5),
             color=self.TEXT,
@@ -192,7 +197,8 @@ class ServiceRecordWidget(QWidget):
 
         self.notes_textbox = Engine.create_text_area(
             text=str(self.notes) if self.notes is not None else "",
-            placeholder="Notas",
+            placeholder="Notas" if self.language == "es"
+                else "Notes",
             size=(595, 50),
             position=(10, 30),
             color=self.TEXT,

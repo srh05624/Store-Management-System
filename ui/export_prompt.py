@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget
-from scripts import in_out_put
+from scripts import in_out_put, utils
 from ui.engine import Engine
 
 class ExportPrompt(QWidget):
@@ -10,14 +10,17 @@ class ExportPrompt(QWidget):
         self.text_color = (255, 255, 255, 255)
         self.window_size = (400, 300)
         self.export_list = set()
+        self.language = utils.current_language
         
         self.setStyleSheet("background-color: rgba(40, 40, 40, 200); border-radius: 10px;")
         self.setFixedSize(self.window_size[0], self.window_size[1])
         self.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint)
-        self.setWindowTitle("Exportar Datos")
+        self.setWindowTitle("Exportar Datos" if self.language == "es" else "Export Data")
         
+
+
         self.export_prompt_title = Engine.create_text(
-            text="¿Qué datos desea exportar?",
+            text="¿Qué datos desea exportar?" if self.language == "es" else "Which data do you want to export?",
             size=16,
             position=(100, 20),
             color=self.text_color,
@@ -56,7 +59,7 @@ class ExportPrompt(QWidget):
         # Export Checkboxes
         # ================================================================
         self.export_all_checkbox = Engine.create_checkbox(
-            text="Exportar Todo",
+            text="Exportar Todo" if self.language == "es" else "Export All",
             size=(160, 20),
             position=(35, 70),
             color=self.text_color,
@@ -83,7 +86,7 @@ class ExportPrompt(QWidget):
         # ================================================================
 
         self.export_stores_checkbox = Engine.create_checkbox(
-            text="Exportar Tiendas",
+            text="Exportar Tiendas" if self.language == "es" else "Export Stores",
             size=(160, 20),
             position=(35, 105),
             color=self.text_color,
@@ -110,7 +113,7 @@ class ExportPrompt(QWidget):
         # ================================================================
 
         self.export_services_checkbox = Engine.create_checkbox(
-            text="Exportar Servicios",
+            text="Exportar Servicios" if self.language == "es" else "Export Services",
             size=(160, 20),
             position=(35, 140),
             color=self.text_color,
@@ -137,7 +140,7 @@ class ExportPrompt(QWidget):
         # ================================================================
 
         self.export_service_records_checkbox = Engine.create_checkbox(
-            text="Exportar Registros",
+            text="Exportar Registros" if self.language == "es" else "Export Records",
             size=(160, 20),
             position=(35, 175),
             color=self.text_color,
@@ -164,7 +167,7 @@ class ExportPrompt(QWidget):
         # ================================================================
 
         self.export_service_history_checkbox = Engine.create_checkbox(
-            text="Exportar Historial",
+            text="Exportar Historial" if self.language == "es" else "Export History",
             size=(160, 20),
             position=(35, 210),
             color=self.text_color,
@@ -192,7 +195,7 @@ class ExportPrompt(QWidget):
         # Action Buttons
         # ================================================================
         self.cancel_button = Engine.create_button(
-            text="Cancelar",
+            text="Cancelar" if self.language == "es" else "Cancel",
             size=(100, 20),
             position=(20 , self.window_size[1] - 50),
             color=self.text_color,
@@ -212,7 +215,7 @@ class ExportPrompt(QWidget):
         # ================================================================
 
         self.export_button = Engine.create_button(
-            text="Exportar",
+            text="Exportar" if self.language == "es" else "Export",
             size=(100, 20),
             position=(self.window_size[0] - 120 , self.window_size[1] - 50),
             color=self.text_color,

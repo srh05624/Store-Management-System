@@ -2,11 +2,13 @@ import os, json
 from scripts import database
 
 local_path = str(os.getenv('APPDATA') or os.path.expanduser('~'))
-install_path = os.path.join(local_path, "Lawn Service Manager")
+install_path = os.path.join(local_path, "Service Manager")
 log_directory = os.path.join(install_path, "logs")
 reports_path = os.path.join(install_path, "reports")
 config_path = os.path.join(install_path, "config.json")
-database_path = os.path.join(install_path, "data", "lawn_services.db")
+database_path = os.path.join(install_path, "data", "services.db")
+
+supported_languages = ["en", "es"]
 
 default_config = {
     "paths": {
@@ -43,7 +45,8 @@ default_config = {
         "enabled": False,
         "directory": os.path.join(install_path, "exports")
     },
-    "app_name": "Lawn Service Manager",
+    "app_name": "Service Manager",
+    "language": "en",
     "report": True
 }
 

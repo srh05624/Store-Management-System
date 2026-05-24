@@ -129,7 +129,7 @@ def initialize_database(db_path):
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ''')
 
-        # Creates a table for Services offered by the lawn service company
+        # Creates a table for Services offered by the service company
         db.create_table('services', '''
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,

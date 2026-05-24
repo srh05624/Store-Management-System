@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QLabel
-from scripts import in_out_put, database
+from scripts import in_out_put, database, utils
 from ui.engine import Engine
 
 class ImagePrompt(QDialog):
@@ -16,8 +16,9 @@ class ImagePrompt(QDialog):
         self.image_id = image_id
         self.pixmap = pixmap
         self.refresh = refresh
+        self.language = utils.current_language
 
-        self.setWindowTitle("Seleccionar imagen")
+        self.setWindowTitle("Seleccionar imagen" if self.language == "es" else "Select Image")
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.setStyleSheet("""
             QDialog {
@@ -37,7 +38,7 @@ class ImagePrompt(QDialog):
         # Action Button definitions
         # ================================================================
         self.save_button = Engine.create_button(
-            text="Salvar Imagen",
+            text="Salvar Imagen" if self.language == "es" else "Save Image",
             size=(120, 40),
             position=(self.width() - 380, self.height() - 60),
             color=(240, 240, 240, 255),
@@ -53,7 +54,7 @@ class ImagePrompt(QDialog):
         # ================================================================
         
         self.delete_button = Engine.create_button(
-            text="Eliminar",
+            text="Eliminar" if self.language == "es" else "Delete",
             size=(100, 40),
             position=(self.width() - 240, self.height() - 60),
             color=(240, 240, 240, 255),
@@ -69,7 +70,7 @@ class ImagePrompt(QDialog):
         # ================================================================
 
         self.cancel_button = Engine.create_button(
-            text="Cancelar",
+            text="Cancelar" if self.language == "es" else "Cancel",
             size=(100, 40),
             position=(self.width() - 120, self.height() - 60),
             color=(240, 240, 240, 255),

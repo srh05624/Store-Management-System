@@ -30,6 +30,8 @@ class ServiceWidget(QWidget):
         self.screen_size = (1920, 1080)
         self.advanced_size = QSize(self.screen_size[0] - 125, 290)
         
+        self.language = utils.current_language
+
         self.TEXT = (240, 240, 240, 255)
         self.TRANSPARENT = (0, 0, 0, 0)
 
@@ -48,7 +50,8 @@ class ServiceWidget(QWidget):
 
         self.price_label = Engine.create_input(
             text=f"${self.price:.2f}" if self.price else "",
-            placeholder="Precio",
+            placeholder="Precio" if self.language == "es"
+                else "Price",
             size=(60, 20),
             position=(135, 5),
             color=self.TEXT,

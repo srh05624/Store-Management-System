@@ -39,6 +39,8 @@ class ServiceHistoryWidget(QWidget):
         self.TRANSPARENT = (0, 0, 0, 0)
         self.BACKGROUND = (40, 40, 40, 255)
 
+        self.language = utils.current_language
+
         self.default_service = database.get_service(self.service_id) if self.service_id else None
 
         # =====================================================
@@ -55,7 +57,8 @@ class ServiceHistoryWidget(QWidget):
         # Service Details
         # =====================================================
         self.service_text = Engine.create_text(
-            text=f"Servicio: {self.default_service.get('name', 'N/A') if self.default_service else 'N/A'}",
+            text=f"Servicio: {self.default_service.get('name', 'N/A')}" if self.language == "es"
+                else f"Service: {self.default_service.get('name', 'N/A')}",
             size=14,
             position=(10, 5),
             color=self.TEXT,
@@ -65,12 +68,16 @@ class ServiceHistoryWidget(QWidget):
         )
 
         if self.service_text:
-            self.service_text.setToolTip("El servicio realizado")
+            self.service_text.setToolTip(
+                "El servicio realizado" if self.language == "es"
+                else "The service performed"
+                )
 
         # =====================================================
 
         self.completed_date_text = Engine.create_text(
-            text=f"Fecha:",
+            text=f"Fecha:" if self.language == "es"
+                else "Date:",
             size=14,
             position=(10, 35),
             color=self.TEXT,
@@ -80,7 +87,10 @@ class ServiceHistoryWidget(QWidget):
         )
 
         if self.completed_date_text:
-            self.completed_date_text.setToolTip("Fecha que se completó el servicio")
+            self.completed_date_text.setToolTip(
+                "Fecha que se completó el servicio" if self.language == "es"
+                else "Date the service was completed"
+                )
 
         # =====================================================
 
@@ -101,7 +111,8 @@ class ServiceHistoryWidget(QWidget):
         # =====================================================
 
         self.worker_name_text = Engine.create_text(
-            text="Trabajador:",
+            text="Trabajador:" if self.language == "es"
+                else "Worker:",
             size=14,
             position=(145, 35),
             color=self.TEXT,
@@ -111,13 +122,17 @@ class ServiceHistoryWidget(QWidget):
         )
 
         if self.worker_name_text:
-            self.worker_name_text.setToolTip("Trabajador asignado al servicio")
+            self.worker_name_text.setToolTip(
+                "Trabajador asignado al servicio" if self.language == "es"
+                else "Worker assigned to the service"
+                )
 
         # =====================================================
 
         self.worker_textbox = Engine.create_input(
             text=self.worker_name if self.worker_name else "",
-            placeholder="Nombre del trabajador",
+            placeholder="Nombre del trabajador" if self.language == "es"
+                else "Worker Name",
             size=(100, 20),
             position=(220, 33),
             color=self.TEXT,
@@ -133,7 +148,8 @@ class ServiceHistoryWidget(QWidget):
 
         self.amount_charged_textbox = Engine.create_input(
             text=self.amount_charged if self.amount_charged is not None else self.default_service.get("default_price", "") if self.default_service else "",
-            placeholder="Cantidad cobrada",
+            placeholder="Cantidad cobrada" if self.language == "es"
+                else "Amount Charged",
             size=(50, 20),
             position=(220, 3),
             color=self.TEXT,
@@ -149,7 +165,8 @@ class ServiceHistoryWidget(QWidget):
 
         self.notes_textbox = Engine.create_text_area(
             text=self.notes if self.notes is not None else "",
-            placeholder="Notas adicionales",
+            placeholder="Notas adicionales" if self.language == "es"
+                else "Additional Notes",
             size=(335, 55),
             position=(10, 60),
             color=self.TEXT,
@@ -164,7 +181,8 @@ class ServiceHistoryWidget(QWidget):
         # =====================================================
 
         self.photos_text = Engine.create_text(
-            text="Imagenes:",
+            text="Imagenes:" if self.language == "es"
+                else "Images:",
             size=14,
             position=(280, 5),
             color=self.TEXT,
@@ -174,7 +192,10 @@ class ServiceHistoryWidget(QWidget):
         )
 
         if self.photos_text:
-            self.photos_text.setToolTip("Fotos del servicio realizado")
+            self.photos_text.setToolTip(
+                "Fotos del servicio realizado" if self.language == "es"
+                else "Photos of the service performed"
+                )
 
         # =====================================================
 
@@ -194,7 +215,8 @@ class ServiceHistoryWidget(QWidget):
         # =====================================================
 
         self.import_image_button = Engine.create_button(
-            text="Añadir Imagen",
+            text="Añadir Imagen" if self.language == "es"
+                else "Add Image",
             size=(120, 25),
             position=(360, 90),
             color=(255, 255, 255, 255),
@@ -211,7 +233,8 @@ class ServiceHistoryWidget(QWidget):
         # =====================================================
 
         self.delete_button = Engine.create_button(
-            text="Eliminar Historial",
+            text="Eliminar Historial" if self.language == "es"
+                else "Delete History",
             size=(120, 25),
             position=(490, 90),
             color=(255, 255, 255, 255),

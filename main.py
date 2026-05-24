@@ -4,7 +4,7 @@ from ui.main_window import MainWindow
 import PySide6.QtWidgets
 
 def main():
-    print("Starting Lawn Service Manager...")
+    print("Starting Service Manager...")
 
     # Run installation and setup
     install_results = installer.verify_all()

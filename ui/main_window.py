@@ -12,6 +12,7 @@ class MainWindow(QWidget):
         self.user = utils.get_username()
         self.window_size = (800, 600)
         self.screen_size = (self.screen().size().width(), self.screen().size().height())
+        self.language = utils.current_language
 
         # ================================================================
         # UI Appearance
@@ -19,7 +20,7 @@ class MainWindow(QWidget):
         self.text_color = (189, 189, 189, 255)
         self.background_color = (34, 34, 34, 255)
 
-        self.setWindowTitle("Lawn Service Manager")
+        self.setWindowTitle("Administrador de Servicios" if self.language == "es" else "Service Manager")
         self.resize(self.window_size[0], self.window_size[1])
 
         # Set background color
@@ -43,7 +44,9 @@ class MainWindow(QWidget):
         # Welcome message
         # ================================================================
         self.welcome_label = Engine.create_text(
-            text=f"Bienvenido al administrador de Lawn Service Manager, {self.user}!",
+            text=f"Bienvenido al administrador de Servicios, {self.user}!" if self.language == "es"
+                else
+                f"Welcome to the Service Manager, {self.user}!",
             size=24,
             position=(50, 50),
             color=self.text_color,
@@ -58,7 +61,9 @@ class MainWindow(QWidget):
         # Store totals
         # ================================================================
         self.store_total_label = Engine.create_text(
-            text=f"Total de tiendas: {self.store_total}",
+            text=f"Total de tiendas: {self.store_total}" if self.language == "es"
+                else
+                f"Total stores: {self.store_total}",
             size=18,
             position=(50, 100),
             color=self.text_color,
@@ -73,7 +78,9 @@ class MainWindow(QWidget):
         # ================================================================
 
         self.service_types_offered_label = Engine.create_text(
-            text=f"Tipos de servicios ofrecidos: {self.service_types_offered}",
+            text=f"Tipos de servicios ofrecidos: {self.service_types_offered}" if self.language == "es"
+                else
+                f"Service types offered: {self.service_types_offered}",
             size=18,
             position=(50, 130),
             color=self.text_color,
@@ -87,7 +94,9 @@ class MainWindow(QWidget):
         # ================================================================
 
         self.service_total_label = Engine.create_text(
-            text=f"Servicios activos programados: {self.active_services}",
+            text=f"Servicios activos programados: {self.active_services}" if self.language == "es"
+                else
+                f"Active scheduled services: {self.active_services}",
             size=18,
             position=(50, 160),
             color=self.text_color,
@@ -103,7 +112,9 @@ class MainWindow(QWidget):
         # Service completion stats
         # ================================================================
         self.services_completed_label = Engine.create_text(
-            text=f"Servicios completados: {self.services_completed}",
+            text=f"Servicios completados: {self.services_completed}" if self.language == "es"
+                else
+                f"Services completed: {self.services_completed}",
             size=18,
             position=(350, 100),
             color=self.text_color,
@@ -118,7 +129,8 @@ class MainWindow(QWidget):
         # ================================================================
         
         self.services_completed_month_label = Engine.create_text(
-            text=f"Servicios completados este mes: {self.services_completed_month}",
+            text=f"Servicios completados este mes: {self.services_completed_month}" if self.language == "es"
+                else f"Services completed this month: {self.services_completed_month}",
             size=18,
             position=(350, 130),
             color=self.text_color,
@@ -133,7 +145,9 @@ class MainWindow(QWidget):
         # ================================================================
 
         self.services_completed_year_label = Engine.create_text(
-            text=f"Servicios completados este año: {self.services_completed_year}",
+            text=f"Servicios completados este año: {self.services_completed_year}" if self.language == "es"
+                else
+                f"Services completed this year: {self.services_completed_year}",
             size=18,
             position=(350, 160),
             color=self.text_color,
@@ -149,7 +163,9 @@ class MainWindow(QWidget):
         # Store search
         # ================================================================
         self.search_bar = Engine.create_input(
-            placeholder="Buscar tiendas...",
+            placeholder="Buscar tiendas..." if self.language == "es"
+                else
+                "Search stores...",
             size=(self.window_size[0] - 100, 30),
             position=(50, 200),
             color=self.text_color,
@@ -181,7 +197,9 @@ class MainWindow(QWidget):
 
         # ================================================================
         self.categories = Engine.create_text(
-            text="Compañía | Tienda # | Dirección | Próximo Servicio | Estado:",
+            text="Compañía | Tienda # | Dirección | Próximo Servicio | Estado:" if self.language == "es"
+                else
+                "Company | Store # | Address | Next Service | Status:",
             size=18,
             position=(50, 250),
             color=self.text_color,
@@ -218,7 +236,9 @@ class MainWindow(QWidget):
         # Export data button
         # ================================================================
         self.export_button = Engine.create_button(
-            text="Exportar",
+            text="Exportar" if self.language == "es"
+                else
+                "Export",
             size=(80, 25),
             position=(self.window_size[0] - 160, 245),
             color=self.text_color,
@@ -239,7 +259,9 @@ class MainWindow(QWidget):
         # Refresh stores button
         # ================================================================
         self.refresh_button = Engine.create_button(
-            text="Refrescar",
+            text="Refrescar" if self.language == "es"
+                else
+                "Refresh",
             size=(80, 25),
             position=(self.window_size[0] - 250, 245),
             color=self.text_color,
@@ -260,7 +282,9 @@ class MainWindow(QWidget):
         # Backup data button
         # ================================================================
         self.backup_button = Engine.create_button(
-            text="Respaldar",
+            text="Respaldar" if self.language == "es"
+                else
+                "Backup",
             size=(80, 25),
             position=(self.window_size[0] - 340, 245),
             color=self.text_color,
@@ -281,7 +305,9 @@ class MainWindow(QWidget):
         # Import data button
         # ================================================================
         self.restore_button = Engine.create_button(
-            text="Restaurar",
+            text="Restaurar" if self.language == "es"
+                else
+                "Restore",
             size=(80, 25),
             position=(self.window_size[0] - 340, 245),
             color=self.text_color,
@@ -312,17 +338,17 @@ class MainWindow(QWidget):
     # ================================================================
     def add_store(self):
         database.add_store({
-            "company_name": "Nombre de la Compañía",
-            "store_number": "123456",
-            "address": "123 Calle Principal",
-            "city": "Ciudad",
-            "state": "Estado",
-            "zip": "12345",
+            "company_name": "",
+            "store_number": "",
+            "address": "",
+            "city": "",
+            "state": "",
+            "zip": "",
             "coordinates": "0,0",
-            "contact_name": "Juan Pérez",
-            "contact_phone": "123-456-7890",
-            "contact_email": "juanperez@example.com",
-            "notes": "Notas sobre la tienda",
+            "contact_name": "",
+            "contact_phone": "",
+            "contact_email": "",
+            "notes": "",
             "active": 1
         })
 
@@ -342,10 +368,11 @@ class MainWindow(QWidget):
             if stores != []: # If no stores are found, show a message in the list
                 for store in stores:
                     latest_service = database.get_next_service_date(store['id'])
+
                     if latest_service:
                         latest_service = utils.format_datetime(latest_service)
                     else:
-                        latest_service = "Ningún servicio programado"
+                        latest_service = "Ningún servicio programado" if self.language == "es" else "No scheduled services"
 
                     item = Engine.create_list_item(self.search_results)
                     if item:
@@ -434,22 +461,40 @@ class MainWindow(QWidget):
         self.services_completed_year = database.get_services_completed_year()
 
         if self.store_total_label:
-            self.store_total_label.setText(f"Total de tiendas: {self.store_total}")
+            self.store_total_label.setText(
+                f"Total de tiendas: {self.store_total}"if self.language == "es"
+                else
+                f"Total stores: {self.store_total}")
         
         if self.service_total_label:
-            self.service_total_label.setText(f"Servicios activos programados: {self.active_services}")
+            self.service_total_label.setText(
+                f"Servicios activos programados: {self.active_services}" if self.language == "es"
+                else
+                f"Active scheduled services: {self.active_services}")
 
         if self.service_types_offered_label:
-            self.service_types_offered_label.setText(f"Tipos de servicios ofrecidos: {self.service_types_offered}")
+            self.service_types_offered_label.setText(
+                f"Tipos de servicios ofrecidos: {self.service_types_offered}" if self.language == "es"
+                else
+                f"Service types offered: {self.service_types_offered}")
         
         if self.services_completed_label:
-            self.services_completed_label.setText(f"Servicios completados: {self.services_completed}")
+            self.services_completed_label.setText(
+                f"Servicios completados: {self.services_completed}" if self.language == "es"
+                else
+                f"Services completed: {self.services_completed}")
 
         if self.services_completed_month_label:
-            self.services_completed_month_label.setText(f"Servicios completados este mes: {self.services_completed_month}")
+            self.services_completed_month_label.setText(
+                f"Servicios completados este mes: {self.services_completed_month}" if self.language == "es"
+                else
+                f"Services completed this month: {self.services_completed_month}")
 
         if self.services_completed_year_label:
-            self.services_completed_year_label.setText(f"Servicios completados este año: {self.services_completed_year}")
+            self.services_completed_year_label.setText(
+                f"Servicios completados este año: {self.services_completed_year}" if self.language == "es"
+                else
+                f"Services completed this year: {self.services_completed_year}")
         
 
 

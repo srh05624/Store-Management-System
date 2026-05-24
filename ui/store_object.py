@@ -46,13 +46,15 @@ class StoreWidget(QWidget):
         self.advanced_size = QSize(self.screen_size[0] - 125, 290)
         self.advanced_view = False
 
+        self.language = utils.current_language
+
         self.TEXT = (240, 240, 240, 255)
         self.TRANSPARENT = (0, 0, 0, 0)
 
         # ================================================
         # Store information
         # ================================================
-        self.company_name = Engine.create_text(
+        self.company_text = Engine.create_text(
             text=company_name,
             size=14,
             position=(10, 0),
@@ -61,14 +63,16 @@ class StoreWidget(QWidget):
             font="Arial",
             window=self
         )
-        if self.company_name:
+        if self.company_text:
             if store_id:
-                self.company_name.setFixedSize(200, 30)
-            self.company_name.show()
+                self.company_text.setFixedSize(200, 30)
+            self.company_text.show()
 
         if store_id:
-            self.store_number = Engine.create_text(
-                text=f"Tienda #: {store_number}",
+            self.main_number_text = Engine.create_text(
+                text=f"Tienda #: {store_number}" if self.language == "es"
+                    else
+                    f"Store #: {store_number}",
                 size=14,
                 position=(205, 0),
                 color=self.TEXT,
@@ -77,14 +81,16 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.store_number:
-                self.store_number.setFixedSize(190, 30)
-                self.store_number.show()
+            if self.main_number_text:
+                self.main_number_text.setFixedSize(190, 30)
+                self.main_number_text.show()
 
             # ================================================================
 
             self.store_address = Engine.create_text(
-                text=f"Dirección: {address}, {city}, {state} {zip}",
+                text=f"Dirección: {address}, {city}, {state} {zip}" if self.language == "es"
+                    else
+                    f"Address: {address}, {city}, {state} {zip}",
                 size=14,
                 position=(400, 0),
                 color=self.TEXT,
@@ -100,7 +106,9 @@ class StoreWidget(QWidget):
             # ================================================================
 
             self.active_services = Engine.create_text(
-                text=f"Servicios activos: {database.get_active_store_services(self.store_id) if self.store_id else 0}",
+                text=f"Servicios activos: {database.get_active_store_services(self.store_id) if self.store_id else 0}" if self.language == "es"
+                    else
+                    f"Active Services: {database.get_active_store_services(self.store_id) if self.store_id else 0}",
                 size=14,
                 position=(850, 0),
                 color=self.TEXT,
@@ -116,7 +124,9 @@ class StoreWidget(QWidget):
             # ================================================================
 
             self.status_text = Engine.create_text(
-                text=f"Estado: {'Activo' if status == 1 else 'Inactivo'}",
+                text=f"Estado: {'Activo' if self.status == 1 else 'Inactivo'}" if self.language == "es"
+                    else
+                    f"Status: {'Active' if self.status == 1 else 'Inactive'}",
                 size=14,
                 position=(1250, 0),
                 color=self.TEXT,
@@ -133,7 +143,9 @@ class StoreWidget(QWidget):
             # Store actions
             # ================================================================
             self.delete_button = Engine.create_button(
-                text="Borrar",
+                text="Borrar" if self.language == "es"
+                    else
+                    "Delete",
                 size=(80, 20),
                 position=(1550, 5),
                 color=self.TEXT,
@@ -151,7 +163,9 @@ class StoreWidget(QWidget):
             # ================================================================
 
             self.toggle_active_button = Engine.create_button(
-                text="Desactivar" if status == 1 else "Activar",
+                text="Desactivar" if self.status == 1 else "Activar" if self.language == "es"
+                    else
+                    "Deactivate" if self.status == 1 else "Activate",
                 size=(100, 20),
                 position=(1640, 5),
                 color=self.TEXT,
@@ -180,7 +194,9 @@ class StoreWidget(QWidget):
             # ================================================================
 
             self.company_name_text = Engine.create_text(
-                text=f"Nombre:",
+                text=f"Nombre:" if self.language == "es"
+                    else
+                    "Name:",
                 size=14,
                 position=(20, 35),
                 color=self.TEXT,
@@ -193,7 +209,9 @@ class StoreWidget(QWidget):
 
             self.company_name_textbox = Engine.create_input(
                 text=company_name,
-                placeholder="Nombre de la Compañía",
+                placeholder="Nombre de la Compañía" if self.language == "es"
+                    else
+                    "Company Name",
                 size=(200, 30),
                 position=(20, 55),
                 color=(0,0,0,255),
@@ -202,13 +220,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.company_name_textbox and self.company_name:
-                self.company_name_textbox.textEdited.connect(lambda: self.update_info(company_name=self.company_name_textbox.text()))
+            if self.company_name_textbox:
+                self.company_name_textbox.textEdited.connect(self.update_info)
 
             # ================================================================
 
             self.store_number_text = Engine.create_text(
-                text=f"Número de Tienda:",
+                text=f"Número de Tienda:" if self.language == "es"
+                    else
+                    "Store Number:",
                 size=14,
                 position=(240, 35),
                 color=self.TEXT,
@@ -221,7 +241,9 @@ class StoreWidget(QWidget):
 
             self.store_number_textbox = Engine.create_input(
                 text=str(store_number) if store_number is not None else "",
-                placeholder="Número de Tienda",
+                placeholder="Número de Tienda" if self.language == "es"
+                    else
+                    "Store Number",
                 size=(200, 30),
                 position=(240, 55),
                 color=(0,0,0,255),
@@ -230,13 +252,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.store_number_textbox and self.store_number:
-                self.store_number_textbox.textEdited.connect(lambda: self.update_info(store_number=self.store_number_textbox.text()))
+            if self.store_number_textbox:
+                self.store_number_textbox.textEdited.connect(self.update_info)
 
             # ================================================================
             
             self.address_text = Engine.create_text(
-                text=f"Dirección:",
+                text=f"Dirección:" if self.language == "es"
+                    else
+                    "Address:",
                 size=14,
                 position=(20, 100),
                 color=self.TEXT,
@@ -249,7 +273,9 @@ class StoreWidget(QWidget):
 
             self.address_textbox = Engine.create_input(
                 text=str(address) if address is not None else "",
-                placeholder="Dirección:",
+                placeholder="Dirección" if self.language == "es"
+                    else
+                    "Address",
                 size=(420, 30),
                 position=(20, 120),
                 color=(0,0,0,255),
@@ -258,13 +284,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.address_textbox and self.address:
-                self.address_textbox.textEdited.connect(lambda: self.update_info(address=self.address_textbox.text()))
+            if self.address_textbox:
+                self.address_textbox.textEdited.connect(self.update_info)
 
             # ================================================================
 
             self.city_text = Engine.create_text(
-                text=f"Ciudad:",
+                text=f"Ciudad:" if self.language == "es"
+                    else
+                    "City:",
                 size=14,
                 position=(20, 160),
                 color=self.TEXT,
@@ -277,7 +305,9 @@ class StoreWidget(QWidget):
 
             self.city_textbox = Engine.create_input(
                 text=str(city) if city is not None else "",
-                placeholder="Ciudad:",
+                placeholder="Ciudad" if self.language == "es"
+                    else
+                    "City",
                 size=(160, 30),
                 position=(20, 180),
                 color=(0, 0, 0, 255),
@@ -286,13 +316,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.city_textbox and self.city:
-                self.city_textbox.textEdited.connect(lambda: self.update_info(city=self.city_textbox.text()))
+            if self.city_textbox:
+                self.city_textbox.textEdited.connect(self.update_info)
 
             # ================================================================
 
             self.state_text = Engine.create_text(
-                text=f"Estado:",
+                text=f"Estado:" if self.language == "es"
+                    else
+                    "State:",
                 size=14,
                 position=(200, 160),
                 color=self.TEXT,
@@ -305,7 +337,9 @@ class StoreWidget(QWidget):
 
             self.state_textbox = Engine.create_input(
                 text=str(state) if state is not None else "",
-                placeholder="Estado:",
+                placeholder="Estado" if self.language == "es"
+                    else
+                    "State",
                 size=(120, 30),
                 position=(200, 180),
                 color=(0, 0, 0, 255),
@@ -314,13 +348,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.state_textbox and self.state:
-                self.state_textbox.textEdited.connect(lambda: self.update_info(state=self.state_textbox.text()))
+            if self.state_textbox:
+                self.state_textbox.textEdited.connect(self.update_info)
 
             # ================================================================
 
             self.zip_text = Engine.create_text(
-                text=f"Código Postal:",
+                text=f"Código Postal:" if self.language == "es"
+                    else
+                    "Zip Code:",
                 size=14,
                 position=(300, 160),
                 color=self.TEXT,
@@ -333,7 +369,9 @@ class StoreWidget(QWidget):
 
             self.zip_textbox = Engine.create_input(
                 text=str(zip) if zip is not None else "",
-                placeholder="Codigo Postal:",
+                placeholder="Código Postal" if self.language == "es"
+                    else
+                    "Zip Code",
                 size=(100, 30),
                 position=(340, 180),
                 color=(0, 0, 0, 255),
@@ -342,13 +380,15 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.zip_textbox and self.zip:
-                self.zip_textbox.textEdited.connect(lambda: self.update_info(zip=self.zip_textbox.text()))
+            if self.zip_textbox:
+                self.zip_textbox.textEdited.connect(self.update_info)
             
             # ================================================================
 
             self.coordinates_text = Engine.create_text(
-                text=f"Coordenadas:",
+                text=f"Coordenadas:" if self.language == "es"
+                    else
+                    "Coordinates:",
                 size=14,
                 position=(20, 220),
                 color=self.TEXT,
@@ -361,7 +401,9 @@ class StoreWidget(QWidget):
 
             self.coordinates_textbox_x = Engine.create_input(
                 text=str(self.coordinates[0]) if len(self.coordinates) > 0 else "",
-                placeholder="Latitud",
+                placeholder="Latitud" if self.language == "es"
+                    else
+                    "Latitude",
                 size=(200, 30),
                 position=(20, 240),
                 color=(0, 0, 0, 255),
@@ -370,11 +412,16 @@ class StoreWidget(QWidget):
                 window=self
             )
 
+            if self.coordinates_textbox_x:
+                self.coordinates_textbox_x.textEdited.connect(self.update_info)
+
             # ================================================================
 
             self.coordinates_textbox_y = Engine.create_input(
                 text=str(self.coordinates[1]) if len(self.coordinates) > 1 else "",
-                placeholder="Longitud",
+                placeholder="Longitud" if self.language == "es"
+                    else
+                    "Longitude",
                 size=(200, 30),
                 position=(240, 240),
                 color=(0, 0, 0, 255),
@@ -383,15 +430,16 @@ class StoreWidget(QWidget):
                 window=self
             )
 
-            if self.coordinates_textbox_x and self.coordinates_textbox_y:
-                self.coordinates_textbox_x.textEdited.connect(lambda: self.update_info(coordinates=f"{self.coordinates_textbox_x.text()},{self.coordinates_textbox_y.text()}"))
-                self.coordinates_textbox_y.textEdited.connect(lambda: self.update_info(coordinates=f"{self.coordinates_textbox_x.text()},{self.coordinates_textbox_y.text()}"))
+            if self.coordinates_textbox_y:
+                self.coordinates_textbox_y.textEdited.connect(self.update_info)
 
             # ================================================================
             # Service information
             # ================================================================
             self.services_text = Engine.create_text(
-                text=f"Servicios: Nombre - Precio - Frecuencia - Fecha de Inicio - Fecha de Fin - Notas",
+                text=f"Servicios: Nombre - Precio - Frecuencia - Fecha de Inicio - Fecha de Fin - Notas" if self.language == "es"
+                    else
+                    "Services: Name - Price - Frequency - Start Date - End Date - Notes",
                 size=14,
                 position=(480, 35),
                 color=self.TEXT,
@@ -433,7 +481,9 @@ class StoreWidget(QWidget):
             # ================================================================
 
             self.service_history_text = Engine.create_text(
-                text=f"Historial de Servicios:",
+                text=f"Historial de Servicios:" if self.language == "es"
+                    else
+                    "Service History:",
                 size=14,
                 position=(1145, 35),
                 color=self.TEXT,
@@ -474,7 +524,9 @@ class StoreWidget(QWidget):
 
             self.service_choice_list_box = Engine.create_input(
                 text="",
-                placeholder="Nuevo Servicio...",
+                placeholder="Nuevo Servicio..." if self.language == "es"
+                    else
+                    "New Service...",
                 size=(240, 30),
                 position=(1094, 146),
                 color=self.TEXT,
@@ -487,18 +539,17 @@ class StoreWidget(QWidget):
 
             if self.service_choice_list_box:
                 self.service_choice_list_box.hide()
-                self.service_choice_list_box.returnPressed.connect(lambda: self.add_service(self.service_choice_list_box.text()))
+                self.service_choice_list_box.returnPressed.connect(self.add_service)
 
            
-    def add_service(self, name):
-        self.service_choice_list_box.setText("")
-
+    def add_service(self):
         database.add_service({
-            "name": name,
+            "name": self.service_choice_list_box.text(),
             "default_price": "0.00",
             "description": "",
         })
 
+        self.service_choice_list_box.setText("")
         self.show_service_list()
 
     def show_service_list(self):
@@ -609,61 +660,66 @@ class StoreWidget(QWidget):
                         self.service_history_list.addItem(item)
                         self.service_history_list.setItemWidget(item, row)
 
-    def update_info(self, company_name=None, store_number=None, address=None, city=None, state=None, zip=None, coordinates=None, next_service_date=None, status=None):
-        updates = {
-            "company_name": company_name,
-            "store_number": store_number,
-            "address": address,
-            "city": city,
-            "state": state,
-            "zip": zip,
-            "coordinates": coordinates,
-            "next_service_date": next_service_date,
-            "active": status
-        }
-        
-        if company_name and self.company_name:
-            utils.log_debug(f"Updating company name to: {company_name}")
-            self.company_name.setText(company_name)
+    def update_info(self):
+        if self.company_text:
+            self.company_name = self.company_name_textbox.text()
 
-        if store_number and self.store_number:
-            utils.log_debug(f"Updating store number to: {store_number}")
-            self.store_number.setText(f"Tienda #: {store_number}")
+            self.company_text.setText(
+                self.company_name
+            )
             
-        if (address or city or state or zip) and self.store_address:
-            if address:
-                utils.log_debug(f"Updating address to: {address}")
-                self.address = address
 
-            if city:
-                utils.log_debug(f"Updating city to: {city}")
-                self.city = city
+        if self.main_number_text:
+            self.store_number = self.store_number_textbox.text()
 
-            if state:
-                utils.log_debug(f"Updating state to: {state}")
-                self.state = state
+            self.main_number_text.setText(
+                f"Tienda #: {self.store_number}" if self.language == "es"
+                else 
+                f"Store #: {self.store_number}"
+            )
+            
+            
+        if self.store_address:
+            self.address = self.address_textbox.text()
+            self.city = self.city_textbox.text()
+            self.state = self.state_textbox.text()
+            self.zip = self.zip_textbox.text()
 
-            if zip:
-                utils.log_debug(f"Updating zip to: {zip}")
-                self.zip = zip
+            self.store_address.setText(
+                f"Dirección: {self.address}, {self.city}, {self.state} {self.zip}" if self.language == "es"
+                else
+                f"Address: {self.address}, {self.city}, {self.state} {self.zip}"
+            )
+            
 
-            self.store_address.setText(f"Dirección: {self.address}, {self.city}, {self.state} {self.zip}")
+        if self.coordinates_textbox_x and self.coordinates_textbox_y:
+            self.coordinates = f"{self.coordinates_textbox_x.text()},{self.coordinates_textbox_y.text()}"
 
-        if coordinates and self.coordinates_textbox_x and self.coordinates_textbox_y:
-            utils.log_debug(f"Updating coordinates to: {coordinates}")
-            self.coordinates = str(coordinates).split(",")
+        if self.status_text and self.toggle_active_button:
+            self.status_text.setText(
+                f"Estado: {'Activo' if self.status == 1 else 'Inactivo'}" if self.language == "es"
+                else
+                f"Status: {'Active' if self.status == 1 else 'Inactive'}"
+                )
+            
+            self.toggle_active_button.setText(
+                f"Desactivar" if self.status == 1 else f"Activar" if self.language == "es"
+                else
+                f"Deactivate" if self.status == 1 else f"Activate"
+                )
 
-        if next_service_date and self.service_date:
-            utils.log_debug(f"Updating next service date to: {next_service_date}")
-            self.service_date.setText(f"Siguiente Fecha de Servicio: {next_service_date}")
+        updates = {
+            "company_name": self.company_name,
+            "store_number": self.store_number,
+            "address": self.address,
+            "city": self.city,
+            "state": self.state,
+            "zip": self.zip,
+            "coordinates": self.coordinates,
+            "active": self.status
+        }
 
-        if status is not None and self.status_text and self.toggle_active_button:
-            utils.log_debug(f"Updating status to: {'Activo' if status == 1 else 'Inactivo'}")
-            self.status_text.setText(f"Estado: {'Activo' if status == 1 else 'Inactivo'}")
-            self.toggle_active_button.setText("Desactivar" if status == 1 else "Activar")
-            self.status = status
-
-        database.update_store(self.store_id, {k: v for k, v in updates.items() if v is not None})
+        database.update_store(self.store_id, updates)
 
     # =====================================================
     # UI Update functions
