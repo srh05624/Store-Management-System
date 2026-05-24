@@ -158,8 +158,8 @@ class MainWindow(QWidget):
             focus_color=(88, 88, 88, 255),
             window=self
         )
-        if self.search_bar:
-            self.search_bar.show()
+        if self.search_bar: # Work in progress - search functionality is not fully implemented yet, so hide the search bar for now
+            self.search_bar.hide()
             self.search_bar.textEdited.connect(self.refresh_stores)
         
         # ================================================================
