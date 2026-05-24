@@ -109,7 +109,10 @@ pip install requirements.txt
 ```
 
 3) Run Application
+
+```bash
 python main.py
+```
 
 **Method 2: (Standalone Executable)**
 The project is packaged into a standalone Windows executable using: pyinstaller
